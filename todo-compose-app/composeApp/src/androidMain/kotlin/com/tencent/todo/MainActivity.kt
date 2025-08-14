@@ -24,11 +24,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import com.tencent.todo.storage.TodoStorageFactory
 import com.tencent.todo.ui.TodoApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // 初始化存储
+        TodoStorageFactory.initialize(this)
+        
         setContent {
             MaterialTheme {
                 Surface(

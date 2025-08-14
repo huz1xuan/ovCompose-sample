@@ -18,6 +18,7 @@
 package com.tencent.todo.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
@@ -36,46 +37,69 @@ import com.tencent.todo.viewmodel.TodoViewModel
  */
 @Composable
 fun TodoActionButtons(viewModel: TodoViewModel) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Button(
-            onClick = { viewModel.showAddDialog() },
-            modifier = Modifier.weight(1f)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(
-                text = "添加Todo",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color.White
-            )
+            Button(
+                onClick = { viewModel.showAddDialog() },
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = "添加Todo",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.White
+                )
+            }
+            
+            Button(
+                onClick = { viewModel.markAllAsCompleted() },
+                modifier = Modifier.weight(1f),
+                enabled = viewModel.activeCount > 0
+            ) {
+                Text(
+                    text = "全部完成",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.White
+                )
+            }
+            
+            Button(
+                onClick = { viewModel.clearCompleted() },
+                modifier = Modifier.weight(1f),
+                enabled = viewModel.completedCount > 0
+            ) {
+                Text(
+                    text = "清空已完成",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.White
+                )
+            }
         }
         
-        Button(
-            onClick = { viewModel.markAllAsCompleted() },
-            modifier = Modifier.weight(1f),
-            enabled = viewModel.activeCount > 0
+        // 数据管理按钮
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(
-                text = "全部完成",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color.White
-            )
-        }
-        
-        Button(
-            onClick = { viewModel.clearCompleted() },
-            modifier = Modifier.weight(1f),
-            enabled = viewModel.completedCount > 0
-        ) {
-            Text(
-                text = "清空已完成",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color.White
-            )
+            Button(
+                onClick = { viewModel.clearAllData() },
+                modifier = Modifier.weight(1f),
+                enabled = viewModel.totalCount > 0
+            ) {
+                Text(
+                    text = "清除所有数据",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.White
+                )
+            }
         }
     }
 } 

@@ -30,7 +30,7 @@ data class TodoItem(
     val description: String = "",
     val isCompleted: Boolean = false,
     val priority: Priority = Priority.MEDIUM,
-    val createdAt: Long = 0L, // Will be set by platform-specific code
+    val createdAt: Long = 0L,
     val completedAt: Long? = null,
     val dueDate: Long? = null,
     val tags: List<String> = emptyList()

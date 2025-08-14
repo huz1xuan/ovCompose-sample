@@ -27,12 +27,25 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.tencent.todo.data.Priority
 import com.tencent.todo.data.TodoFilter
 import com.tencent.todo.data.TodoItem
+import com.tencent.todo.storage.TodoStorage
+import com.tencent.todo.storage.TodoStorageFactory
 import com.tencent.todo.utils.getCurrentTimeMillis
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * Todo应用的状态管理类
  */
 class TodoViewModel {
+    
+    private val storage: TodoStorage = TodoStorageFactory.createTodoStorage()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    
+    init {
+        // 初始化时加载数据
+        loadTodos()
+    }
     
     // Todo列表状态
     private val _todos = mutableStateListOf<TodoItem>()
@@ -105,6 +118,7 @@ class TodoViewModel {
             tags = tags
         )
         _todos.add(newTodo)
+        saveTodos()
         hideAddDialog()
     }
     
@@ -115,6 +129,7 @@ class TodoViewModel {
         val index = _todos.indexOfFirst { it.id == todo.id }
         if (index != -1) {
             _todos[index] = todo
+            saveTodos()
         }
     }
     
@@ -123,6 +138,7 @@ class TodoViewModel {
      */
     fun deleteTodo(todoId: String) {
         _todos.removeAll { it.id == todoId }
+        saveTodos()
     }
     
     /**
@@ -137,6 +153,7 @@ class TodoViewModel {
                 completedAt = if (!todo.isCompleted) getCurrentTimeMillis() else null
             )
             _todos[index] = updatedTodo
+            saveTodos()
         }
     }
     
@@ -189,6 +206,7 @@ class TodoViewModel {
      */
     fun clearCompleted() {
         _todos.removeAll { it.isCompleted }
+        saveTodos()
     }
     
     /**
@@ -204,6 +222,7 @@ class TodoViewModel {
                 )
             }
         }
+        saveTodos()
     }
     
     /**
@@ -216,6 +235,49 @@ class TodoViewModel {
                     isCompleted = false,
                     completedAt = null
                 )
+            }
+        }
+        saveTodos()
+    }
+    
+    /**
+     * 加载Todo数据
+     */
+    private fun loadTodos() {
+        coroutineScope.launch {
+            try {
+                val loadedTodos = storage.loadTodos()
+                _todos.clear()
+                _todos.addAll(loadedTodos)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    
+    /**
+     * 保存Todo数据
+     */
+    private fun saveTodos() {
+        coroutineScope.launch {
+            try {
+                storage.saveTodos(todos.toList())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    
+    /**
+     * 清除所有数据
+     */
+    fun clearAllData() {
+        coroutineScope.launch {
+            try {
+                storage.clearAll()
+                _todos.clear()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

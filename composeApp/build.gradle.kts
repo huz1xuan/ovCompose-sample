@@ -25,6 +25,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.cocoapods)
+    kotlin("plugin.serialization") version "2.0.21-KBA-005"
 }
 
 kotlin {
@@ -86,6 +87,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.atomicFu)
+            implementation(libs.kotlinx.serialization.json)
         }
 
         val ohosArm64Main by getting {

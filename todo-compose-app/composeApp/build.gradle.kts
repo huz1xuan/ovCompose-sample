@@ -25,6 +25,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.cocoapods)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -78,6 +79,14 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.atomicFu)
+        }
+        
+        androidMain.dependencies {
+            implementation(libs.kotlinx.serialization.json)
+        }
+        
+        iosMain.dependencies {
+            implementation(libs.kotlinx.serialization.json)
         }
 
         val ohosArm64Main by getting {
