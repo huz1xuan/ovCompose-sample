@@ -1,3 +1,11 @@
+#
+# Be sure to run `pod lib lint composeApp.podspec' to ensure this is a
+# valid spec before submitting.
+#
+# Any lines starting with a # are optional, but their use is encouraged
+# To learn more about a Podspec see https://guides.cocoapods.org/syntax/podspec.html
+#
+
 Pod::Spec.new do |spec|
     spec.name                     = 'composeApp'
     spec.version                  = '1.0'
@@ -30,7 +38,6 @@ Pod::Spec.new do |spec|
         'KOTLIN_PROJECT_PATH' => ':composeApp',
         'PRODUCT_MODULE_NAME' => 'ComposeApp',
     }
-                
     spec.script_phases = [
         {
             :name => 'Build composeApp',
@@ -50,5 +57,5 @@ Pod::Spec.new do |spec|
             SCRIPT
         }
     ]
-    spec.resources = ['build/compose/ios/ComposeApp/compose-resources']
+    spec.resources = []
 end

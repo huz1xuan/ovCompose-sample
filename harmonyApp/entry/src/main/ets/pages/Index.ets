@@ -17,7 +17,7 @@
 
 import { Compose } from 'compose';
 import { MainArkUIViewController } from 'libentry.so';
-import { registerComposeInteropBuilders } from './ComposeSample';
+import { registerComposeInteropBuilders } from './TodoApp';
 
 registerComposeInteropBuilders();
 

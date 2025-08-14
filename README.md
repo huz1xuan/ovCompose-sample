@@ -499,6 +499,19 @@ The iOS app provides two rendering modes: one based on Skia and the other based 
 
 The UIKit mode has been widely adopted in Tencent Video iOS, and there have been zero reported UI inconsistency issues from business feedback. If you find that an important feature is not yet supported, feel free to provide feedback or submit a Pull Request.
 
+## 🎉 项目状态
+
+### ✅ 构建成功状态
+- **Android**: ✅ 成功构建并运行
+- **iOS**: ✅ 成功构建并运行 (查看 [iOS构建成功总结](IOS_SUCCESS_SUMMARY.md))
+- **HarmonyOS**: ✅ 成功构建并生成HAP包 (查看 [鸿蒙端构建成功总结](HARMONYOS_BUILD_SUCCESS.md))
+
+### 📱 跨平台支持
+本项目已实现真正的跨平台支持，使用ovCompose框架在三个主要平台上运行：
+- Android (Compose)
+- iOS (UIKit + Skia渲染)
+- HarmonyOS (ArkUI)
+
 ## License
 ovCompose-sample is released under the Apache 2.0 License. For details, see: [License](License.txt)
 
